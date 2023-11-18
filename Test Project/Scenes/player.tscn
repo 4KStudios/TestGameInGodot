@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://chspuop8oxxar"]
+
+[ext_resource type="Texture2D" uid="uid://cs17ugxp55skf" path="res://icon.svg" id="1_dreg1"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_jw2y0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1hlpf"]
+size = Vector2(62, 124)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x358y"]
+size = Vector2(95, 151)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_jw2y0")
+jumpforce = 700
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3, -70)
+scale = Vector2(0.507813, 1)
+texture = ExtResource("1_dreg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -69)
+shape = SubResource("RectangleShape2D_1hlpf")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-5, -168)
+
+[node name="playerHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerHitbox"]
+position = Vector2(-2.5, -73.5)
+shape = SubResource("RectangleShape2D_x358y")
+
+[node name="hitCooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_entered" from="playerHitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="playerHitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="timeout" from="hitCooldown" to="." method="_on_hit_cooldown_timeout"]

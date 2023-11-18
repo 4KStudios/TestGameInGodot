@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhduh4y2kjko1"]
+
+[ext_resource type="Script" path="res://Scripts/Dummy.gd" id="1_divl6"]
+[ext_resource type="Texture2D" uid="uid://hhstjt3h1iue" path="res://Assets/training_dummy.png" id="2_a7glm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0h21h"]
+radius = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3sipo"]
+radius = 29.0
+height = 80.0
+
+[node name="Dummy" type="CharacterBody2D"]
+script = ExtResource("1_divl6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -43)
+scale = Vector2(1.58333, 1.34375)
+texture = ExtResource("2_a7glm")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(2, -40)
+shape = SubResource("CircleShape2D_0h21h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, -40)
+shape = SubResource("CapsuleShape2D_3sipo")
+
+[node name="hitCooldown" type="Timer" parent="."]
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
+[connection signal="timeout" from="hitCooldown" to="." method="_on_hit_cooldown_timeout"]

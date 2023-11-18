@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://bgobg84edtbkn"]
+
+[ext_resource type="PackedScene" uid="uid://chspuop8oxxar" path="res://Scenes/player.tscn" id="1_d0jew"]
+[ext_resource type="Texture2D" uid="uid://c74x257igduft" path="res://Assets/randbackgrnd.png" id="2_acsw0"]
+[ext_resource type="PackedScene" uid="uid://dhduh4y2kjko1" path="res://Scenes/dummy.tscn" id="3_m8nep"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2vjl"]
+size = Vector2(1495, 96)
+
+[sub_resource type="QuadMesh" id="QuadMesh_0v6qb"]
+size = Vector2(1500, 100)
+
+[sub_resource type="QuadMesh" id="QuadMesh_50td5"]
+size = Vector2(1500, 1000)
+
+[node name="SideScrolller" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_d0jew")]
+position = Vector2(586, 363)
+jumpforce = 800
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(257, 200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+position = Vector2(342.5, 395)
+shape = SubResource("RectangleShape2D_g2vjl")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Platform"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(343, 394)
+mesh = SubResource("QuadMesh_0v6qb")
+
+[node name="Background" type="MeshInstance2D" parent="."]
+light_mask = 512
+visibility_layer = 512
+z_index = -10
+position = Vector2(600, 95)
+rotation = -3.14159
+mesh = SubResource("QuadMesh_50td5")
+texture = ExtResource("2_acsw0")
+
+[node name="Dummy" parent="." instance=ExtResource("3_m8nep")]
+position = Vector2(1074, 546)
